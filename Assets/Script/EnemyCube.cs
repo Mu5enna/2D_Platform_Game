@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class EnemyCube : MonoBehaviour
 {
+    Rigidbody2D cubeRB;
     public float damage = 50;
     public float health = 100;
     public float damageFrequency = 1, damageTime;
     public bool isDead = false;
+    public float distance = 4, speed = 3;
+    Vector3 startPos;
 
     GameObject object2Destroy = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cubeRB = GetComponent<Rigidbody2D>();
+        startPos = cubeRB.position;
     }
 
     // Update is called once per frame
@@ -25,6 +29,7 @@ public class EnemyCube : MonoBehaviour
             object2Destroy = GameObject.Find("EnemyCube");
             Destroy(object2Destroy);
         }
+        HorizontalMove();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,6 +51,18 @@ public class EnemyCube : MonoBehaviour
         {
             health = 0;
             isDead = true;
+        }
+    }
+
+    public void HorizontalMove()
+    {
+        if (cubeRB.position.x <= startPos.x)
+        {
+            cubeRB.velocity = new Vector2(speed, 0);
+        }
+        else if (cubeRB.position.x >= startPos.x + distance)
+        {
+            cubeRB.velocity = new Vector2(speed, 0) ;
         }
     }
 }
