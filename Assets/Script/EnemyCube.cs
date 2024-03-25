@@ -10,6 +10,7 @@ public class EnemyCube : MonoBehaviour
     public float damageFrequency = 1, damageTime;
     public bool isDead = false;
     public float distance = 4, speed = 3;
+    float preSpeed;
     Vector3 startPos;
 
     GameObject object2Destroy = null;
@@ -28,8 +29,10 @@ public class EnemyCube : MonoBehaviour
         {
             object2Destroy = GameObject.Find("EnemyCube");
             Destroy(object2Destroy);
+            Application.Quit();
         }
         HorizontalMove();
+        preSpeed = cubeRB.velocity.x;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,7 +65,11 @@ public class EnemyCube : MonoBehaviour
         }
         else if (cubeRB.position.x >= startPos.x + distance)
         {
-            cubeRB.velocity = new Vector2(speed, 0) ;
+            cubeRB.velocity = new Vector2(-speed, 0);
+        }
+        else
+        {
+            cubeRB.velocity = new Vector2(preSpeed, 0);
         }
     }
 }

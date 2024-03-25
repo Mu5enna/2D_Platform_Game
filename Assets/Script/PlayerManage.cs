@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManage : MonoBehaviour
 {
@@ -19,7 +20,10 @@ public class PlayerManage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isDead)
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
     }
 
     public void getDamage(float damage)
